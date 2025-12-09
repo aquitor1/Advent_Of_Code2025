@@ -4,6 +4,6 @@ Dia 1: Es facilmente resuelta usando módulos y operaciones matemáticas pero pa
 
 Dia2: Fue escrita usando estructuras de árboles
 
-Dia3: 
+Dia3: Se empleo una estructura de datos, basada en arboles
 
 Dia7: Recursividad junto a Divide y Venceras
