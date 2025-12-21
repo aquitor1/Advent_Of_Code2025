@@ -1,4 +1,6 @@
- Day 2 — Gift Shop (Advent of Code)
+Como llamarlo: usar el makefile y "./day02 input.txt" así todo se compila bien 
+
+Day 2 — Gift Shop (Advent of Code)
 
 La tarea consistía en identificar todos los IDs no válidos de la tienda de regalos. Un ID se considera no válido si se forma al repetir una secuencia numérica (por ejemplo: 11, 99, 1010, 222222…). Después, había que sumar todos esos valores.
 
