@@ -1,154 +1,78 @@
-Como usar: llamar el make bin/... y darle el input del problema
-
-Advent of Code 2025 – Memoria PRA
-Día 7: Laboratorios – Laboratorios de Teletransportación
+Memoria PRA - Advent of Code 2025 - Día 7
 1. Elección del problema
+Escogí el problema del Día 7 sobre los Laboratorios de Teletransportación porque se adapta perfectamente a una solución recursiva simple. El problema consiste en simular un haz de taquiones que se mueve por un mapa y se divide cada vez que encuentra un símbolo especial.
 
-Elegimos el problema del Día 7 porque nos parecía adecuado para aplicar la técnica de Divide y Vencerás usando DFS recursivo.
-El objetivo es simular la propagación de un haz de taquiones en un mapa y contar cuántas veces se divide al encontrar divisores (^). Cada división genera dos nuevos haces que se propagan hacia abajo, lo que hace que el problema se adapte perfectamente a la recursión y a la técnica de dividir el problema en subproblemas.
+2. Descripción del problema
+Tenemos un mapa formado por caracteres donde:
 
-2. Descripción técnica
-2.1 Entrada y representación
+El punto (.) representa espacio vacío
 
-La entrada consiste en un mapa 2D representado con caracteres:
+El símbolo ^ representa un divisor del haz
 
-. → espacio vacío, el haz sigue bajando.
+La letra S marca la posición inicial del haz
 
-^ → divisor, el haz se detiene y se divide.
+El haz siempre se mueve hacia abajo. Cuando encuentra un divisor (^), el haz se detiene y se crean dos nuevos haces: uno que baja diagonalmente hacia la izquierda y otro que baja diagonalmente hacia la derecha. El objetivo es contar cuántas veces se divide el haz en total.
 
-S → posición inicial del haz.
+3. Solución implementada
+3.1 Enfoque recursivo
+Implementé una solución puramente recursiva. La idea es simple: comenzar desde la posición debajo de la S y seguir recursivamente el camino del haz.
 
-Cada línea del mapa se almacena en un vector<string> para acceder a cualquier celda por coordenadas (fila, columna).
+3.2 Estructuras de datos
+Un vector de strings para almacenar el mapa completo
 
-Para evitar contar celdas duplicadas, cada posición se codifica como (fila << 32) | columna y se guarda en un unordered_set.
+Un conjunto (set) para llevar registro de las posiciones ya visitadas
 
-2.2 Algoritmo
+Variables para las dimensiones del mapa (filas y columnas)
 
-Buscar la posición inicial S en el mapa.
+3.3 Función recursiva principal
+La función recursiva tiene estos pasos:
 
-Llamar a la función recursiva explorar(r, c) desde la fila debajo de S:
+Primero verifica si la posición actual está dentro de los límites del mapa
 
-Si la celda es . → el haz sigue bajando.
+Luego comprueba si ya hemos procesado esa posición antes
 
-Si la celda es ^ → se cuenta una división y se crean dos llamadas recursivas: una hacia la columna izquierda y otra hacia la derecha.
+Marca la posición como visitada
 
-Para otros caracteres → el haz simplemente sigue bajando.
+Si la celda contiene un divisor (^), suma 1 al contador y hace dos llamadas recursivas: una hacia abajo-izquierda y otra hacia abajo-derecha
 
-Cada celda visitada se marca en el unordered_set para evitar recalcular divisiones.
+Si la celda no es un divisor, simplemente hace una llamada recursiva hacia abajo
 
-2.3 Optimización
+3.4 Prevención de procesamiento duplicado
+Uso un conjunto para almacenar las posiciones ya visitadas. Esto evita que el programa procese la misma celda múltiples veces, lo que podría llevar a un conteo incorrecto o a un bucle infinito.
 
-Complejidad temporal: O(N), siendo N el número de celdas visitadas.
+3.5 Flujo del programa
+Leer todo el mapa desde la entrada estándar
 
-Complejidad espacial: O(N), por el set de celdas visitadas.
+Buscar la posición inicial marcada con S
 
-Se evita recursión innecesaria gracias al marcado de posiciones ya recorridas.
+Llamar a la función recursiva comenzando desde debajo de la S
 
-3. Código
+Imprimir el resultado total
 
-Funciones cortas y descriptivas: leerMapa, buscarInicio, explorar.
+4. Decisiones de diseño
+4.1 Recursividad simple vs compleja
+Opté por una recursividad simple en lugar de técnicas más complejas como "divide y vencerás" porque el problema se presta naturalmente a este enfoque. Cada decisión (seguir recto o dividirse) se maneja con una simple llamada recursiva.
 
-Variables con nombres significativos (mapa, visto, R, C).
+4.2 Uso de variables globales
+Para simplificar el código, uso variables globales para el mapa y el conjunto de visitados. Esto evita tener que pasar estos parámetros en cada llamada recursiva.
 
-Uso de ios::sync_with_stdio(false) y cin.tie(nullptr) para lectura eficiente.
+4.3 Manejo de entrada/salida
+El programa lee desde la entrada estándar, lo que permite redirigir archivos fácilmente. La salida es solo el número total de divisiones.
 
-(El código completo se adjunta como anexo en el proyecto)
+5. Aprendizajes
+5.1 Sobre recursividad
+Este problema refuerza cómo usar recursividad para explorar caminos en una estructura bidimensional. La recursividad es natural para problemas donde un proceso se bifurca en múltiples caminos.
 
-4. Alternativas y decisiones
+5.2 Sobre optimización
+El uso del conjunto para marcar posiciones visitadas es crucial para la eficiencia. Sin esto, el programa podría volverse extremadamente lento en mapas grandes debido a la recomputación.
 
-Recorrer toda la matriz con bucles iterativos → más complejo y propenso a errores.
+5.3 Sobre claridad del código
+Mantener la función recursiva simple y bien documentada hace que el código sea fácil de entender y mantener. Cada caso está claramente definido y el flujo es intuitivo.
 
-DFS recursivo simple sin marcar celdas visitadas → ineficiente para mapas grandes.
+6. Ejemplo de funcionamiento
+Para el ejemplo proporcionado en el enunciado, donde el haz se divide 21 veces, mi programa calcula correctamente este valor. El programa procesa cada divisor exactamente una vez y suma todas las divisiones.
 
-DFS con marcado de celdas visitadas (unordered_set) → eficiente, claro y evita cálculos innecesarios.
+7. Conclusión
+La solución implementada demuestra que para muchos problemas, una aproximación recursiva simple y bien estructurada es suficiente. No siempre se necesitan algoritmos complejos cuando el problema tiene una estructura naturalmente recursiva.
 
-5. Valoración personal
-
-Aprendimos a aplicar Divide y Vencerás en matrices.
-
-Marcar estados visitados optimiza algoritmos recursivos.
-
-Codificación eficiente de posiciones para usar unordered_set.
-
-Organización de código modular y limpio.
-
-6. Conclusión
-
-Implementación eficiente y clara, cumpliendo los objetivos de la rúbrica PRA.
-
-Aplicación correcta de DFS recursivo y Divide y Vencerás.
-
-Documentación de decisiones técnicas, alternativas y aprendizajes.
-
-Día 2: Gift Shop – Identificación de IDs inválidos usando Árboles Binarios de Búsqueda (BST)
-1. Elección del problema
-
-Elegimos el desafío del Día 2 porque permite aplicar estructuras de datos aprendidas en clase, especialmente BST.
-El objetivo es hallar todos los identificadores inválidos dentro de los rangos dados (números que se repiten como 11, 1010, 222222…) y sumar sus valores. BST facilita guardar IDs únicos y calcular el total de manera eficiente.
-
-2. Descripción técnica
-2.1 Entrada y representación
-
-Entrada: línea de texto con rangos de identificadores separados por comas, cada rango formado por dos números divididos por -.
-
-Se manejan los rangos por separado, evitando recorrer todos los números y mejorando el rendimiento.
-
-2.2 Árbol Binario de Búsqueda
-
-Cada nodo guarda un ID no válido.
-
-Inserción:
-
-Menor → subárbol izquierdo.
-
-Mayor → subárbol derecho.
-
-Si ya existe → no se añade, evitando duplicados.
-
-Se realiza un recorrido en orden para sumar todos los IDs.
-
-2.3 Detección de IDs inválidos
-
-Cada número se convierte a cadena.
-
-La cadena se divide en dos partes iguales; si la primera se repite en la segunda, es inválida.
-
-Solo estos IDs se añaden al BST.
-
-3. Organización del código
-
-Funciones autónomas:
-
-Lectura y análisis de input.txt.
-
-Verificación de validez de ID.
-
-Adición al BST.
-
-Recorrido en orden para sumar IDs.
-
-Se incluye un Makefile para compilar y ejecutar el programa fácilmente.
-
-4. Alternativas evaluadas
-
-Uso de vectores o listas → menos eficiente, requiere verificar duplicados manualmente.
-
-Generar todos los números en los rangos → impracticable para rangos grandes.
-
-BST → eficiente, claro y aplicable.
-
-5. Aprendizaje y reflexión
-
-Uso de BST para guardar datos únicos y recorrerlos ordenadamente.
-
-Estructuración de código modular y clara.
-
-Optimización al evitar cálculos innecesarios en grandes conjuntos de datos.
-
-Práctica en manejo de archivos de entrada y estructuras de datos dinámicas en C++.
-
-6. Conclusión
-
-Implementación efectiva y sencilla que cumple los objetivos: encontrar IDs inválidos y calcular la suma total.
-
-Refuerza conocimientos de BST, algoritmos y gestión de datos complejos.
+El código es corto (menos de 50 líneas), eficiente y fácil de entender. Resuelve correctamente el problema para entradas de cualquier tamaño mientras se mantenga dentro de los límites de la pila de recursión, lo cual es adecuado para los tamaños típicos de Advent of Code.
