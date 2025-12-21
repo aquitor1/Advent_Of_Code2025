@@ -6,4 +6,4 @@ Dia2: Fue escrita usando estructuras de árboles
 
 Dia3: Se empleo una estructura de datos, basada en arboles
 
-Dia7: Recursividad junto a Divide y Venceras
+Dia7: Recursividad 
