@@ -1,3 +1,5 @@
+Como usar: llamar el make bin/... y darle el input del problema
+
 Advent of Code 2025 – Memoria PRA
 Día 7: Laboratorios – Laboratorios de Teletransportación
 1. Elección del problema
