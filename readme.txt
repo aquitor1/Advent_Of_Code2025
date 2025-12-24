@@ -6,4 +6,4 @@ Dia2: Fue escrita usando estructuras de árboles
 
 Dia7: Recursividad 
 
-Dia11: Grafos
+Dia8: Grafos no direccionados
