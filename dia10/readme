@@ -1,0 +1,95 @@
+Advent of Code 2025: Día 10
+
+Cómo compilar?:
+--------------------------
+-"make"
+-"./bin/dia10 < input.txt"
+
+1. Elección del problema
+------------------------
+Hemos elegido el problema del Día 10 de Advent of Code porque nos
+permitía aplicar programación dinámica, que era uno de los objetivos
+de nuestro trabajo
+El problema implica encontrar la cantidad mínima de pulsaciones de 
+botón para encender las luces, lo que encaja muy bien con técnicas 
+de programación dinámica.
+Además, que en la historia el problema lo causara un shiba inu nos 
+parecio gracioso.
+
+-Descripción del problema:
+En este problema, los elfos tienen que encender unas máquinas,
+pero el manual se lo comió un Shiba Inu, así que solo saben
+cómo deben quedar las luces y qué botones cambian cada luz.
+
+Todas las luces empiezan apagadas y cada botón enciende
+o apaga varias a la vez.
+
+El objetivo es averiguar el menor número de veces que hay
+que pulsar los botones para que las luces queden como
+se pide en cada máquina y sumar esas pulsaciones para todas.
+
+2.Técnica utilizada
+-----------------------
+El programa utiliza programación dinámica con máscaras de bits
+para representar todas las combinaciones posibles de luces.
+Cada luz se representa con un bit: 1 si está encendida y 0 si
+está apagada. Un número entero guarda el estado de todas las luces
+a la vez.
+
+La programación dinámica se usa en el vector dist, que guarda para 
+cada combinación de luces cuántas pulsaciones hacen falta para llegar 
+a ese estado desde que todas las luces están apagadas.
+Cada vez que se pulsa un botón y se genera un nuevo estado, se comprueba 
+si ese estado ya tiene un número de pulsaciones registrado en dist. 
+Si no lo tiene, se pone el número de pulsaciones necesario (dist[estado_actual] + 1).
+
+De esta forma no tenemos que calcular varias veces lo mismo, y podemos aprovechar 
+los resultados que ya hemos calculado para resolver el problema más 
+rápido. Esto es lo que hace que sea programación dinámica.
+
+Para recorrer todos los estados y encontrar la solución mínima,
+se combinó esta técnica con BFS (búsqueda en anchura).
+
+3. Solución implementada
+------------------------
+
+Cada combinación de luces se representa como un número entero utilizando
+una máscara de bits, de manera que cada bit indica si la luz 
+correspondiente está encendida (1) o apagada (0).
+
+Cada botón se codifica con otra máscara de bits que indica 
+qué luces se modifican al pulsarlo. Esto permite que al presionar 
+un botón, podamos calcular de forma rápida el nuevo estado de todas las luces 
+aplicando una operación XOR entre la máscara del botón y el estado actual. Así
+podemos simular fácilmente como cambian las luces con cada pulsación sin tener 
+que comprobar cada una por separado.
+
+Despues, creamos un vector llamado dist que guarda para cada posible estado de 
+las luces el número mínimo de pulsaciones necesarias para llegar desde el 
+estado inicial. Cada vez que se genera un nuevo estado al pulsar un botón,
+se comprueba si ese estado ya tiene un valor registrado en dist.
+Si aún no tiene  valor, se actualiza asignándole dist[estado_actual] + 1, 
+que es el número de pulsaciones necesarias para llegar al estado 
+actual más una pulsación adicional por 
+el botón recién presionado. Utilizando la técnica de programación dinamica 
+con máscaras de bits, se evita recalcular varias veces el mismo estado y 
+se aprovechan los resultados parciales ya calculados.
+
+Finalmente utilizamos la técnnica "búsqueda en anchura"  con una cola para
+asegurarnos de obtener el mínimo num de pulsaciones posibles.
+
+Otra posible solución podría ser utilizando fuerza bruta, probando todas las
+las combinaciones. Pero es muy ineficiente y poco práctico, por lo que la mejor
+opción es utilizar programación dinamica.
+
+4. Dificultades
+----------------
+Al principio no sabiamos como plantear los estados y las combinaciones de luces, 
+por ello terminamos usando bits.
+
+
+5.Valoración personal
+----------------------
+Resolver este problema nos ha hecho aprender casos prácticos para aplicar 
+programación dinámica y como representar estados utilizando máscaras de bits.
+
