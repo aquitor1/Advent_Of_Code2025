@@ -6,4 +6,4 @@ Dia 8: Grafos no direccionados;
 
 Dia 10: Programación dinámica;
 
-dia 12; estructuras de los arboles
+Dia 12; Estructuras de los arboles;
