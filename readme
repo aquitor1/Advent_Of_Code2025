@@ -1,0 +1,51 @@
+Day 12: Christmas Tree Farm
+
+1. Motivación y selección del problema
+Hemos elegido el  reto del día 12: Granja de Árboles de Navidad de Advent of Code, porque integra varios conceptos que hemos visto en PRA como las estructuras de datos, árboles de decisiones y manejo de matrices…  
+
+El reto es organizar los regalos de varios tamaños y formas. Los regalos deben entrar en los espacios rectangulares bajo los árboles, considerando los giros y las rotaciones, sin que los regalos se superpongan. Esta situación nos hizo modelar el problema como un árbol de opciones. Cada nodo muestra una condición del tablero. Cada rama indica la ubicación de una pieza en un lugar y una orientación que funcionan.
+
+La decisión se basó en tres aspectos:
+
+Importancia técnica: facilita el uso de estructuras en forma de árboles y métodos de búsqueda.
+Complejidad adecuada: el problema es un reto suficiente para requerir un enfoque recursivo y el uso de árboles, pero es lo bastante manejable para ser implementado en C++.
+Aprendizaje conceptual: refuerza ideas estudiadas en clase sobre cómo representar estados, la recursión y el retroceso. 
+
+2. Diseño y descripción técnica de la solución
+La solución se dividió en varias fases:
+
+2.1 Representación de datos
+Región bajo cada árbol: un panel 2D (vectorial) en el que cada sector señala si está lleno o desocupado.
+Regalos: cada figura se muestra como una matriz de ceros y unos (1 muestra que la celda está ocupada por la pieza).
+Rotaciones y volteos: Calculamos antes todas las rotaciones y giros de cada pieza. Las rotaciones y giros facilitan la colocación de la pieza en el tablero.
+Contador de piezas: un vector piece_count que muestra cuántas piezas de cada clase quedan por colocar. 
+
+2.2 Algoritmo principal
+El núcleo de la solución consiste en un regreso atrás recursivo que investiga todas las posibles combinaciones para colocar las piezas, siguiendo un árbol de elecciones:
+Nodo: situación actual del tablero y piezas que quedan
+Rama: ubicar la pieza que sigue en el lugar y la dirección que correspondan. Ubicar la pieza que sigue en el lugar y la dirección ayuda a la rama.
+Recursión: si se han colocado todas las piezas → se ha encontrado una solución; si no hay lugares válidos → retroceso.
+Funciones secundarias:
+canPlace: comprueba si una pieza encaja en un lugar sin superponerse.
+placePiece: posiciona o quita la pieza (0 al quitar, índice al colocar) para permitir retroceder
+ 
+2.3 Comprobación de resultados
+Se revisaron todos los ejemplos mencionados:
+4x4 con 2 elementos → es posible instalarlo (correcto).
+12x5 con elementos específicos → el resultado coincide con los ejemplos indicados.
+
+Esto confirma que el retroceso analiza correctamente el árbol de decisiones y que el algoritmo es funcional
+
+3. Análisis de alternativas y decisiones
+Durante el proceso de desarrollo, se examinaron distintas opciones antes de tomar la decisión final sobre la implementación:
+Dancing Links (DLX) para coberturas exactas: es muy eficiente para colocar piezas, pero no se trató en clase y no se podía justificar el uso de árboles de decisiones, así que se optó por no utilizarlo.
+Memorización utilizando tablas hash: podría optimizar el retroceso al eliminar la repetición de configuraciones, pero no era un requisito esencial para los objetivos de aprendizaje.
+Árbol explícito con nodos y punteros: inicialmente se pensó en representar cada nodo con estructuras definidas, pero la recursión implícita hace que el árbol de decisiones se forme de manera más clara y sencilla, lo que justifica el uso de estructuras arbóreas. 
+
+4. Reflexión y valoración del aprendizaje
+Esta tarea facilitó:
+Comprender de qué manera se puede representar un problema real mediante un diagrama de decisiones, utilizando conceptos que se aprendieron en las lecciones.
+Analizar las diferentes posibilidades de implementación y ofrecer justificaciones para elegir la solución final siguiendo criterios tanto técnicos como educativos.
+Desarrollar la habilidad para reflexionar sobre estados y combinaciones en problemas combinatorios, lo cual es una enseñanza útil para abordar otros retos relacionados con la lógica y la optimización.
+
+En resumen, se alcanzó un equilibrio entre precisión, eficacia y fundamentos teóricos, lo que mejoró tanto la comprensión de los algoritmos recursivos como la aplicación de estructuras de árboles en contextos prácticos. 
