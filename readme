@@ -6,7 +6,6 @@ Hemos elegido el  reto del día 12: Granja de Árboles de Navidad de Advent of C
 El reto es organizar los regalos de varios tamaños y formas. Los regalos deben entrar en los espacios rectangulares bajo los árboles, considerando los giros y las rotaciones, sin que los regalos se superpongan. Esta situación nos hizo modelar el problema como un árbol de opciones. Cada nodo muestra una condición del tablero. Cada rama indica la ubicación de una pieza en un lugar y una orientación que funcionan.
 
 La decisión se basó en tres aspectos:
-
 Importancia técnica: facilita el uso de estructuras en forma de árboles y métodos de búsqueda.
 Complejidad adecuada: el problema es un reto suficiente para requerir un enfoque recursivo y el uso de árboles, pero es lo bastante manejable para ser implementado en C++.
 Aprendizaje conceptual: refuerza ideas estudiadas en clase sobre cómo representar estados, la recursión y el retroceso. 
