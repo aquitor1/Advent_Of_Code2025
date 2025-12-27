@@ -1,6 +1,6 @@
 Dias escogidos para usar las técnicas de clase:
 
-Dia 5:
+Dia 5: Tabla Hash;
 
 Dia 8: Grafos no direccionados;
 
